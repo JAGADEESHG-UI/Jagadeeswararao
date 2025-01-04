@@ -7,10 +7,22 @@
     <title>Interactive Portfolio</title>
     <style>
         /* Global Styles */
+        :root {
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --background-color: #f0f0f0;
+            --text-color: #333;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            color: #333;
+            color: var(--text-color);
+            background: var(--background-color);
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
         }
 
         a {
@@ -26,9 +38,13 @@
 
         /* Header Styles */
         header {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         header .container {
@@ -39,6 +55,7 @@
 
         header h1 {
             margin: 0;
+            font-size: 1.5rem;
         }
 
         nav ul {
@@ -52,8 +69,13 @@
             margin: 0 10px;
         }
 
+        nav ul li a {
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
         nav ul li a:hover {
-            border-bottom: 2px solid white;
+            opacity: 0.8;
         }
 
         /* Hero Section */
@@ -66,16 +88,19 @@
             color: white;
             text-align: center;
             flex-direction: column;
+            position: relative;
         }
 
         .hero h2 {
             font-size: 3rem;
             margin: 0;
+            animation: fadeIn 2s ease-in-out;
         }
 
         .hero p {
             font-size: 1.2rem;
             margin: 10px 0 20px;
+            animation: fadeIn 2.5s ease-in-out;
         }
 
         .hero button {
@@ -84,18 +109,56 @@
             border: none;
             border-radius: 5px;
             background: white;
-            color: #6a11cb;
+            color: var(--primary-color);
             cursor: pointer;
+            transition: transform 0.3s;
+            animation: bounce 2s infinite;
         }
 
         .hero button:hover {
+            transform: scale(1.1);
             background: #f0f0f0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
         }
 
         /* About Section */
         .about {
             padding: 50px 0;
             background: #f9f9f9;
+            animation: slideIn 2s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .about h2 {
@@ -112,6 +175,7 @@
         /* Projects Section */
         .projects {
             padding: 50px 0;
+            background: #fff;
         }
 
         .projects h2 {
@@ -126,11 +190,15 @@
         }
 
         .project-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             transition: transform 0.3s;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            animation: zoomIn 1.5s ease-in-out;
+            transform-style: preserve-3d;
         }
 
         .project-card img {
@@ -140,7 +208,8 @@
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
+            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .project-card h3 {
@@ -152,12 +221,31 @@
             color: #666;
         }
 
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         /* Footer */
         footer {
             background: #333;
             color: white;
             text-align: center;
             padding: 20px 0;
+            margin-top: 20px;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode {
+            background: #333;
+            color: white;
         }
     </style>
 </head>
