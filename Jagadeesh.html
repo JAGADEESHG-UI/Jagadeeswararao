@@ -1,309 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Portfolio</title>
+    <title>3D Portfolio Template</title>
     <style>
-        /* Global Styles */
-        :root {
-            --primary-color: #6a11cb;
-            --secondary-color: #2575fc;
-            --background-color: #f0f0f0;
-            --text-color: #333;
-            --card-bg: rgba(255, 255, 255, 0.8);
-            --glass-border: rgba(255, 255, 255, 0.3);
-        }
-
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            color: var(--text-color);
-            background: var(--background-color);
-            overflow-x: hidden;
-            transition: background 0.3s, color 0.3s;
+            padding: 0;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        .cd-3d-portfolio {
+            perspective: 1000px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header Styles */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        .cd-3d-portfolio-navigation {
+            background: #333;
             color: white;
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
 
-        header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
-
-        nav ul {
+        .cd-3d-portfolio-navigation ul {
             list-style: none;
             padding: 0;
-            margin: 0;
-            display: flex;
         }
 
-        nav ul li {
-            margin: 0 10px;
+        .cd-3d-portfolio-navigation li {
+            display: inline;
+            margin-right: 20px;
         }
 
-        nav ul li a {
-            font-weight: bold;
-            transition: opacity 0.3s;
-        }
-
-        nav ul li a:hover {
-            opacity: 0.8;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            background: url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .cd-3d-portfolio-navigation a {
             color: white;
-            text-align: center;
-            flex-direction: column;
-            position: relative;
+            text-decoration: none;
         }
 
-        .hero h2 {
-            font-size: 3rem;
-            margin: 0;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin: 10px 0 20px;
-            animation: fadeIn 2.5s ease-in-out;
-        }
-
-        .hero button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 5px;
-            background: white;
-            color: var(--primary-color);
-            cursor: pointer;
-            transition: transform 0.3s;
-            animation: bounce 2s infinite;
-        }
-
-        .hero button:hover {
-            transform: scale(1.1);
-            background: #f0f0f0;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-
-        /* About Section */
-        .about {
-            padding: 50px 0;
-            background: #f9f9f9;
-            animation: slideIn 2s ease-in-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .about h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .about p {
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Projects Section */
         .projects {
-            padding: 50px 0;
-            background: #fff;
+            position: relative;
+            height: 300px;
+            margin: 20px;
         }
 
-        .projects h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .project-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .project-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            transition: transform 0.3s;
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            animation: zoomIn 1.5s ease-in-out;
+        .projects .row {
+            height: 100%;
+            position: relative;
+            z-index: 1;
             transform-style: preserve-3d;
+            transform: translateZ(-50vw);
+            transition: transform 0.6s cubic-bezier(0.5, 0, 0.1, 1);
         }
 
-        .project-card img {
+        .projects .row > li {
+            position: absolute;
+            z-index: 1;
+            height: 100%;
             width: 100%;
-            height: 200px;
-            object-fit: cover;
+            overflow: hidden;
         }
 
-        .project-card:hover {
-            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        .projects .row > li.front-face {
+            transform: translateZ(50vw);
         }
 
-        .project-card h3 {
-            margin: 10px;
+        .projects .row > li.right-face {
+            transform: rotateY(90deg) translateZ(50vw);
         }
 
-        .project-card p {
-            margin: 10px;
-            color: #666;
+        .projects .row > li.left-face {
+            transform: rotateY(-90deg) translateZ(50vw);
         }
 
-        @keyframes zoomIn {
-            from {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .projects .row > li.back-face {
+            transform: rotateY(180deg) translateZ(50vw);
         }
 
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 20px;
-            animation: fadeIn 3s ease-in-out;
+        .projects .project-image {
+            position: relative;
+            width: 100%;
+            height: 25%;
+            transition: transform 0.6s;
         }
 
-        /* Dark Mode Toggle */
-        .dark-mode {
-            background: #333;
-            color: white;
+        .projects .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            height: 240%;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .projects .project-content {
+            position: absolute;
+            top: 60%;
+            width: 100%;
+            background: white;
+            padding: 10px;
+        }
+
+        .close-project {
+            display: block;
+            margin-top: 10px;
+            color: #333;
+            text-decoration: none;
         }
     </style>
 </head>
-
 <body>
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <h1>JAGADEESH</h1>
-            <nav>
+    <div class="cd-3d-portfolio">
+        <nav class="cd-3d-portfolio-navigation">
+            <div class="cd-wrapper">
+                <h1>3D Portfolio Template</h1>
                 <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#0" class="selected">Filter 1</a></li>
+                    <li><a href="#0">Filter 2</a></li>
+                    <li><a href="#0">Filter 3</a></li>
                 </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <h2>Welcome to My Portfolio</h2>
-        <p>Discover my work and passion for design and technology.</p>
-        <button onclick="alert('Thanks for visiting!')">Learn More</button>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <h2>About Me</h2>
-        <p>I am a passionate developer with expertise in creating interactive and user-friendly designs. I enjoy solving problems and crafting visually appealing experiences for the web.</p>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="projects" id="projects">
-        <h2>My Projects</h2>
-        <div class="project-cards">
-            <div class="project-card">
-                <img src="https://via.placeholder.com/300" alt="Project 1">
-                <h3>Project One</h3>
-                <p>A brief description of this amazing project.</p>
             </div>
-            <div class="project-card">
-                <img src="https://via.placeholder.com/300" alt="Project 2">
-                <h3>Project Two</h3>
-                <p>A brief description of this fantastic project.</p>
-            </div>
-            <div class="project-card">
-                <img src="https://via.placeholder.com/300" alt="Project 3">
-                <h3>Project Three</h3>
-                <p>A brief description of this innovative project.</p>
-            </div>
-        </div>
-    </section>
+        </nav> <!-- .cd-3d-portfolio-navigation -->
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 JAGADEESH. All rights reserved.</p>
-    </footer>
-</body>
+        <div class="projects">
+            <ul class="row">
+                <li class="front-face selected project-1">
+                    <div class="project-wrapper">
+                        <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200?text=Project+1');">
+                            <div class="project-title">
+                                <h2>Project 1</h2>
+                            </div>
+                        </div> <!-- .project-image -->
 
-</html>
+                        <div class="project-content">
+                            <p>Description of Project 1.</p>
+                        </div> <!-- .project-content -->
+
+                        <a href="#0" class="close-project">Close</a>
+                    </div> <!-- .project-wrapper -->
+                </li>
+
+                <li class="right-face project-2">
+                    <div class="project-wrapper">
+                        <div class="project-image" style="background-image:
