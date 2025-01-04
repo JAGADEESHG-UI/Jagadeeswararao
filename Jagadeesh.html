@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Portfolio Template</title>
+    <title>3D Tree Portfolio Template</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
 
         .cd-3d-portfolio {
             perspective: 1000px;
+            position: relative;
+            height: 100vh;
         }
 
         .cd-3d-portfolio-navigation {
             background: #333;
             color: white;
             padding: 20px;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
         }
 
         .cd-3d-portfolio-navigation ul {
@@ -39,7 +45,7 @@
 
         .projects {
             position: relative;
-            height: 300px;
+            height: calc(100vh - 80px);
             margin: 20px;
         }
 
@@ -79,21 +85,10 @@
         .projects .project-image {
             position: relative;
             width: 100%;
-            height: 25%;
+            height: 100%;
             transition: transform 0.6s;
-        }
-
-        .projects .project-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1;
-            height: 240%;
-            background-position: center center;
-            background-repeat: no-repeat;
             background-size: cover;
+            background-position: center;
         }
 
         .projects .project-content {
@@ -102,6 +97,7 @@
             width: 100%;
             background: white;
             padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .close-project {
@@ -110,13 +106,29 @@
             color: #333;
             text-decoration: none;
         }
+
+        /* Animation for project images */
+        .project-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .cd-3d-portfolio-navigation {
+                padding: 10px;
+            }
+
+            .projects {
+                margin: 10px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="cd-3d-portfolio">
         <nav class="cd-3d-portfolio-navigation">
             <div class="cd-wrapper">
-                <h1>3D Portfolio Template</h1>
+                <h1>3D Tree Portfolio Template</h1>
                 <ul>
                     <li><a href="#0" class="selected">Filter 1</a></li>
                     <li><a href="#0">Filter 2</a></li>
@@ -129,20 +141,4 @@
             <ul class="row">
                 <li class="front-face selected project-1">
                     <div class="project-wrapper">
-                        <div class="project-image" style="background-image: url('https://via.placeholder.com/300x200?text=Project+1');">
-                            <div class="project-title">
-                                <h2>Project 1</h2>
-                            </div>
-                        </div> <!-- .project-image -->
-
-                        <div class="project-content">
-                            <p>Description of Project 1.</p>
-                        </div> <!-- .project-content -->
-
-                        <a href="#0" class="close-project">Close</a>
-                    </div> <!-- .project-wrapper -->
-                </li>
-
-                <li class="right-face project-2">
-                    <div class="project-wrapper">
-                        <div class="project-image" style="background-image:
+                        <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnwz
